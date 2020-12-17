@@ -74,14 +74,13 @@ class AvoidObstaclesAviary(BaseSingleAgentAviary):
 
         """
         super()._addObstacles()
-        for i in [0, 1, -1]:
-            for j in range(30):
-                p.loadURDF(os.path.dirname(os.path.abspath(__file__))
-                           +"/../../assets/architrave.urdf",
-                           [i, 2 + 2 * abs(-i), j * .06],
+        for i in range(4):
+            for x in [0, 1, -1]:
+                p.loadURDF("cube_small.urdf",
+                           [x, 4 if x != 0 else 2, i * 0.5],
                            p.getQuaternionFromEuler([0, 0, 0]),
-                           physicsClientId=self.CLIENT
-                           )
+                           physicsClientId=self.CLIENT,
+                           globalScaling=8)
 
     ################################################################################
     
@@ -96,7 +95,10 @@ class AvoidObstaclesAviary(BaseSingleAgentAviary):
         """
         state = self._getDroneStateVector(0)
         # norm_ep_time = (self.step_counter/self.SIM_FREQ) / self.EPISODE_LEN_SEC
-        return -10 * np.linalg.norm(np.array([0, 6, 0.75])-state[0:3])**2
+        diff_vector = np.array([0, 6, 0.75])-state[0:3]
+        return -10 * np.linalg.norm(diff_vector)**2 \
+               - 20 * diff_vector[0]**2 - 20 * diff_vector[2]**2
+        # sides
 
     ################################################################################
     
