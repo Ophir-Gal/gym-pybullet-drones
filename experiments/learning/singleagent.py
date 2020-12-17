@@ -204,7 +204,7 @@ if __name__ == "__main__":
                                     n_envs=1,
                                     seed=0
                                     ) 
-        if env_nam == "hover-aviary-v0": 
+        if env_name == "hover-aviary-v0":
             eval_env = make_vec_env(HoverAviary,
                                     env_kwargs=sa_env_kwargs,
                                     n_envs=1,
@@ -215,7 +215,13 @@ if __name__ == "__main__":
                                     env_kwargs=sa_env_kwargs,
                                     n_envs=1,
                                     seed=0
-                                    ) 
+                                    )
+        if env_name == "avoidobst-aviary-v0":
+            eval_env = make_vec_env(AvoidObstaclesAviary,
+                                     env_kwargs=sa_env_kwargs,
+                                     n_envs=1,
+                                     seed=0
+                                     )
         eval_env = VecTransposeImage(eval_env)
 
     #### Train the model #######################################
