@@ -45,6 +45,8 @@ if __name__ == "__main__":
     #### Define and parse (optional) arguments for the script ##
     parser = argparse.ArgumentParser(description='Single agent reinforcement learning example script using TakeoffAviary')
     parser.add_argument('--exp',                           type=str,            help='Help (default: ..)', metavar='')
+    parser.add_argument('--show_gui', type=str, help='Help (default: ..)',
+                        metavar='')
     ARGS = parser.parse_args()
 
     #### Load the model from file ##############################
@@ -97,7 +99,7 @@ if __name__ == "__main__":
 
     #### Show, record a video, and log the model's performance #
     test_env = gym.make(env_name,
-                        gui=True,
+                        gui=True if ARGS.show_gui == "true" else False,
                         record=True,
                         aggregate_phy_steps=shared_constants.AGGR_PHY_STEPS,
                         obs=OBS,

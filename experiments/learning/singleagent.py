@@ -43,6 +43,7 @@ from stable_baselines3.common.callbacks import CheckpointCallback, EvalCallback,
 from gym_pybullet_drones.envs.single_agent_rl.TakeoffAviary import TakeoffAviary
 from gym_pybullet_drones.envs.single_agent_rl.HoverAviary import HoverAviary
 from gym_pybullet_drones.envs.single_agent_rl.FlyThruGateAviary import FlyThruGateAviary
+from gym_pybullet_drones.envs.single_agent_rl.AvoidObstaclesAviary import AvoidObstaclesAviary
 from gym_pybullet_drones.envs.single_agent_rl.BaseSingleAgentAviary import ActionType, ObservationType
 
 import shared_constants
@@ -54,11 +55,14 @@ if __name__ == "__main__":
 
     #### Define and parse (optional) arguments for the script ##
     parser = argparse.ArgumentParser(description='Single agent reinforcement learning experiments script')
-    parser.add_argument('--env',        default='hover',      type=str,             choices=['takeoff', 'hover', 'flythrugate'],    help='Help (default: ..)', metavar='')
+    parser.add_argument('--env',        default='hover',      type=str,
+                        choices=['takeoff', 'hover', 'flythrugate',
+                                 'avoidobst'],
+                        help='Help (default: ..)', metavar='')
     parser.add_argument('--algo',       default='ppo',        type=str,             choices=['a2c', 'ppo', 'sac', 'td3', 'ddpg'],   help='Help (default: ..)', metavar='')
     parser.add_argument('--obs',        default='kin',        type=ObservationType,                                                 help='Help (default: ..)', metavar='')
     parser.add_argument('--act',        default='one_d_rpm',  type=ActionType,                                                      help='Help (default: ..)', metavar='')
-    parser.add_argument('--cpu',        default='1',          type=int,                                                             help='Help (default: ..)', metavar='')        
+    parser.add_argument('--cpu',        default='1',          type=int,                                                                 help='Help (default: ..)', metavar='')
     ARGS = parser.parse_args()
 
     #### Save directory ########################################
@@ -67,9 +71,9 @@ if __name__ == "__main__":
         os.makedirs(filename+'/')
 
     #### Print out current git commit hash #####################
-    git_commit = subprocess.check_output(["git", "describe", "--tags"]).strip()
-    with open(filename+'/git_commit.txt', 'w+') as f:
-        f.write(str(git_commit))
+    # git_commit = subprocess.check_output(["git", "describe", "--tags"]).strip()
+    # with open(filename+'/git_commit.txt', 'w+') as f:
+    #     f.write(str(git_commit))
 
     #### Warning ###############################################
     if ARGS.act == ActionType.ONE_D_RPM or ARGS.act == ActionType.ONE_D_DYN or ARGS.act == ActionType.ONE_D_PID:
@@ -102,6 +106,12 @@ if __name__ == "__main__":
                                  )
     if env_name == "flythrugate-aviary-v0":
         train_env = make_vec_env(FlyThruGateAviary,
+                                 env_kwargs=sa_env_kwargs,
+                                 n_envs=ARGS.cpu,
+                                 seed=0
+                                 )
+    if env_name == "avoidobst-aviary-v0":
+        train_env = make_vec_env(AvoidObstaclesAviary,
                                  env_kwargs=sa_env_kwargs,
                                  n_envs=ARGS.cpu,
                                  seed=0
