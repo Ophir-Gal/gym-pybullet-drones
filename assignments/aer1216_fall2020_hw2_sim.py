@@ -65,6 +65,7 @@ if __name__ == "__main__":
     ACTION["0"] = CTRL_0.compute_control(current_position=STATE[0:3],
                                          current_velocity=STATE[10:13],
                                          current_rpy=STATE[7:10],
+                                         current_rpy_dot=STATE[13:16],
                                          target_position=STATE[0:3],
                                          target_velocity=np.zeros(3),
                                          target_acceleration=np.zeros(3)
@@ -73,6 +74,7 @@ if __name__ == "__main__":
     ACTION["1"] = CTRL_1.compute_control(current_position=STATE[0:3],
                                          current_velocity=STATE[10:13],
                                          current_rpy=STATE[7:10],
+                                         current_rpy_dot=STATE[13:16],
                                          target_position=STATE[0:3],
                                          target_velocity=np.zeros(3),
                                          target_acceleration=np.zeros(3)
@@ -81,6 +83,7 @@ if __name__ == "__main__":
     ACTION["2"] = CTRL_2.compute_control(current_position=STATE[0:3],
                                          current_velocity=STATE[10:13],
                                          current_rpy=STATE[7:10],
+                                         current_rpy_dot=STATE[13:16],
                                          target_position=STATE[0:3],
                                          target_velocity=np.zeros(3),
                                          target_acceleration=np.zeros(3)
@@ -110,6 +113,7 @@ if __name__ == "__main__":
         ACTION["0"] = CTRL_0.compute_control(current_position=STATE[0:3],
                                              current_velocity=STATE[10:13],
                                              current_rpy=STATE[7:10],
+                                             current_rpy_dot=STATE[13:16],
                                              target_position=TARGET_POSITION[i, :],
                                              target_velocity=TARGET_VELOCITY[i, :],
                                              target_acceleration=TARGET_ACCELERATION[i, :]
@@ -122,6 +126,7 @@ if __name__ == "__main__":
         ACTION["1"] = CTRL_1.compute_control(current_position=STATE[0:3],
                                              current_velocity=STATE[10:13],
                                              current_rpy=STATE[7:10],
+                                             current_rpy_dot=STATE[13:16],
                                              target_position=TARGET_POSITION[i, :] + np.array([-.3, .0, .0]),
                                              target_velocity=TARGET_VELOCITY[i, :],
                                              target_acceleration=TARGET_ACCELERATION[i, :]
@@ -134,6 +139,7 @@ if __name__ == "__main__":
         ACTION["2"] = CTRL_2.compute_control(current_position=STATE[0:3],
                                              current_velocity=STATE[10:13],
                                              current_rpy=STATE[7:10],
+                                             current_rpy_dot=STATE[13:16],
                                              target_position=TARGET_POSITION[i, :] + np.array([.3, .0, .0]),
                                              target_velocity=TARGET_VELOCITY[i, :],
                                              target_acceleration=TARGET_ACCELERATION[i, :]

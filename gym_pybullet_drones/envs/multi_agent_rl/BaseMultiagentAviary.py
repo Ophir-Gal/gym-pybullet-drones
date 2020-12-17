@@ -10,8 +10,6 @@ from gym_pybullet_drones.utils.utils import nnlsRPM
 from gym_pybullet_drones.control.DSLPIDControl import DSLPIDControl
 from gym_pybullet_drones.control.SimplePIDControl import SimplePIDControl
 
-from gym_pybullet_drones.envs.CtrlAviary import CtrlAviary
-
 class BaseMultiagentAviary(BaseAviary, MultiAgentEnv):
     """Base multi-agent environment class for reinforcement learning."""
     
@@ -77,10 +75,10 @@ class BaseMultiagentAviary(BaseAviary, MultiAgentEnv):
         #### Create integrated controllers #########################
         if act in [ActionType.PID, ActionType.ONE_D_PID]:
             os.environ['KMP_DUPLICATE_LIB_OK']='True'
-            if drone_model in [DroneModel.CF2X, DroneModel.CF2P]:
-                self.ctrl = [DSLPIDControl(CtrlAviary(drone_model=DroneModel.CF2X)) for i in range(num_drones)]
-            elif drone_model == DroneModel.HB:
-                self.ctrl = [SimplePIDControl(CtrlAviary(drone_model=DroneModel.HB)) for i in range(num_drones)]
+            if self.DRONE_MODEL in [DroneModel.CF2X, DroneModel.CF2P]:
+                self.ctrl = [DSLPIDControl(BaseAviary(drone_model=DroneModel.CF2X)) for i in range(self.NUM_DRONES)]
+            elif self.DRONE_MODEL == DroneModel.HB:
+                self.ctrl = [SimplePIDControl(BaseAviary(drone_model=DroneModel.HB)) for i in range(self.NUM_DRONES)]
         super().__init__(drone_model=drone_model,
                          num_drones=num_drones,
                          neighbourhood_radius=neighbourhood_radius,
@@ -259,7 +257,7 @@ class BaseMultiagentAviary(BaseAviary, MultiAgentEnv):
         elif self.OBS_TYPE == ObservationType.KIN:
             ############################################################
             #### OBS OF SIZE 20 (WITH QUATERNION AND RPMS)
-            #### Observation vector ### X        Y        Z       Q1   Q2   Q3   Q4   R       P       Y       VX       VY       VZ       WX       WY       WZ       P0            P1            P2            P3
+            #### Observation vector ### X        Y        Z       Q1   Q2   Q3   Q4   R       P       Y       VX       VY       VZ       WR       WP       WY       P0            P1            P2            P3
             # obs_lower_bound = np.array([-1,      -1,      0,      -1,  -1,  -1,  -1,  -1,     -1,     -1,     -1,      -1,      -1,      -1,      -1,      -1,      -1,           -1,           -1,           -1])
             # obs_upper_bound = np.array([1,       1,       1,      1,   1,   1,   1,   1,      1,      1,      1,       1,       1,       1,       1,       1,       1,            1,            1,            1])          
             # return spaces.Box( low=obs_lower_bound, high=obs_upper_bound, dtype=np.float32 )
