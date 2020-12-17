@@ -95,9 +95,8 @@ class AvoidObstaclesAviary(BaseSingleAgentAviary):
         """
         state = self._getDroneStateVector(0)
         # norm_ep_time = (self.step_counter/self.SIM_FREQ) / self.EPISODE_LEN_SEC
-        diff_vector = np.array([0, 6, 0.75])-state[0:3]
-        return -10 * np.linalg.norm(diff_vector)**2 \
-               - 20 * diff_vector[0]**2 - 20 * diff_vector[2]**2
+        dist_to_target = np.linalg.norm(np.array([0, 6, 0.75])-state[0:3])
+        return -10 * dist_to_target**2
         # sides
 
     ################################################################################
