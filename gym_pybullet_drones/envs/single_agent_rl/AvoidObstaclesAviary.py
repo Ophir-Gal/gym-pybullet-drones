@@ -81,6 +81,14 @@ class AvoidObstaclesAviary(BaseSingleAgentAviary):
                            p.getQuaternionFromEuler([0, 0, 0]),
                            physicsClientId=self.CLIENT,
                            globalScaling=8)
+        for i in range(4):
+            for x in [-2, 2]:
+                for y in np.arange(-6, 6, 0.4):
+                    p.loadURDF("cube_small.urdf",
+                               [x, y, i * 0.5],
+                               p.getQuaternionFromEuler([0, 0, 0]),
+                               physicsClientId=self.CLIENT,
+                               globalScaling=8)
 
     ################################################################################
     

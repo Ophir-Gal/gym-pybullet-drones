@@ -1,6 +1,7 @@
 import pybullet as p
 import time
 import pybullet_data
+import numpy as np
 physicsClient = p.connect(p.GUI)#or p.DIRECT for non-graphical version
 p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
 p.setGravity(0,0,-10)
@@ -28,6 +29,15 @@ for i in range(4):
                    p.getQuaternionFromEuler([0, 0, 0]),
                    physicsClientId=physicsClient,
                    globalScaling=8)
+
+for i in range(4):
+    for x in [-2, 2]:
+        for y in np.arange(-6,6,0.4):
+            p.loadURDF("cube_small.urdf",
+                       [x, y, i * 0.5],
+                       p.getQuaternionFromEuler([0, 0, 0]),
+                       physicsClientId=physicsClient,
+                       globalScaling=8)
 
 
 
