@@ -7,8 +7,8 @@ from gym_pybullet_drones.envs.BaseAviary import DroneModel, Physics, BaseAviary
 from gym_pybullet_drones.envs.single_agent_rl.BaseSingleAgentAviary import ActionType, ObservationType, BaseSingleAgentAviary
 
 
-class FlyThruGateAviary(BaseSingleAgentAviary):
-    """Single agent RL problem: fly through a gate."""
+class AvoidObstaclesAviary(BaseSingleAgentAviary):
+    """Single agent RL problem: avoid 3 obstacles."""
     
     ################################################################################
     
@@ -69,13 +69,15 @@ class FlyThruGateAviary(BaseSingleAgentAviary):
     def _addObstacles(self):
         """Add obstacles to the environment.
 
-        Extends the superclass method and add the gate build of cubes and an architrave.
+        Extends the superclass method and adds the wall obstacles built of
+        architraves.
 
         """
         super()._addObstacles()
         for i in [0, 1, -1]:
             for j in range(30):
-                p.loadURDF(os.path.dirname(os.path.abspath(__file__))+"/../../assets/architrave.urdf",
+                p.loadURDF(os.path.dirname(os.path.abspath(__file__))
+                           +"/../../assets/architrave.urdf",
                            [i, 2 + 2 * abs(-i), j * .06],
                            p.getQuaternionFromEuler([0, 0, 0]),
                            physicsClientId=self.CLIENT
@@ -93,8 +95,8 @@ class FlyThruGateAviary(BaseSingleAgentAviary):
 
         """
         state = self._getDroneStateVector(0)
-        norm_ep_time = (self.step_counter/self.SIM_FREQ) / self.EPISODE_LEN_SEC
-        return -10 * np.linalg.norm(np.array([0, 2*norm_ep_time, 0.75])-state[0:3])**2
+        # norm_ep_time = (self.step_counter/self.SIM_FREQ) / self.EPISODE_LEN_SEC
+        return -10 * np.linalg.norm(np.array([0, 6, 0.75])-state[0:3])**2
 
     ################################################################################
     

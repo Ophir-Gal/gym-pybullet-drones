@@ -8,7 +8,7 @@ planeId = p.loadURDF("plane.urdf")
 print("YAY")
 
 p.loadURDF(r"..\gym_pybullet_drones\assets\cf2x.urdf",
-                           [0, 0.5, .55],
+                           [0, 0.5, .75],
                            p.getQuaternionFromEuler([0, 0, 0]),
                            physicsClientId=physicsClient
                            )
