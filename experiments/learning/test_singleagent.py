@@ -48,6 +48,9 @@ if __name__ == "__main__":
     parser.add_argument('--exp',                           type=str,            help='Help (default: ..)', metavar='')
     parser.add_argument('--show_gui', type=str, help='Help (default: ..)',
                         metavar='')
+    parser.add_argument('--duration_sec', default=5, type=int,
+                        help='Duration of the simulation in seconds (default: 5)',
+                        metavar='')
     ARGS = parser.parse_args()
 
     #### Load the model from file ##############################
@@ -111,7 +114,7 @@ if __name__ == "__main__":
                     )
     obs = test_env.reset()
     start = time.time()
-    for i in range(6*int(test_env.SIM_FREQ/test_env.AGGR_PHY_STEPS)): # Up to 6''
+    for i in range(int(ARGS.duration_sec)*int(test_env.SIM_FREQ/test_env.AGGR_PHY_STEPS)): # Up to ARGS.duration_sec seconds
         action, _states = model.predict(obs,
                                         deterministic=True # OPTIONAL 'deterministic=False'
                                         )
