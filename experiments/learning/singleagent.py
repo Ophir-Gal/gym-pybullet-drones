@@ -57,7 +57,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Single agent reinforcement learning experiments script')
     parser.add_argument('--env',        default='hover',      type=str,
                         choices=['takeoff', 'hover', 'flythrugate',
-                                 'avoidobst'],
+                                 'avoidobstacles'],
                         help='Help (default: ..)', metavar='')
     parser.add_argument('--algo',       default='ppo',        type=str,             choices=['a2c', 'ppo', 'sac', 'td3', 'ddpg'],   help='Help (default: ..)', metavar='')
     parser.add_argument('--obs',        default='kin',        type=ObservationType,                                                 help='Help (default: ..)', metavar='')
@@ -110,7 +110,7 @@ if __name__ == "__main__":
                                  n_envs=ARGS.cpu,
                                  seed=0
                                  )
-    if env_name == "avoidobst-aviary-v0":
+    if env_name == "avoidobstacles-aviary-v0":
         train_env = make_vec_env(AvoidObstaclesAviary,
                                  env_kwargs=sa_env_kwargs,
                                  n_envs=ARGS.cpu,
@@ -216,7 +216,7 @@ if __name__ == "__main__":
                                     n_envs=1,
                                     seed=0
                                     )
-        if env_name == "avoidobst-aviary-v0":
+        if env_name == "avoidobstacles-aviary-v0":
             eval_env = make_vec_env(AvoidObstaclesAviary,
                                      env_kwargs=sa_env_kwargs,
                                      n_envs=1,
