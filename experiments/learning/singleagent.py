@@ -85,7 +85,7 @@ if __name__ == "__main__":
     if ARGS.algo in ['sac', 'td3', 'ddpg'] and ARGS.cpu!=1: 
         print("[ERROR] The selected algorithm does not support multiple environments")
         exit()
-
+    gym.make()
     #### Uncomment to debug slurm scripts ######################
     # exit()
 
