@@ -63,6 +63,10 @@ if __name__ == "__main__":
     parser.add_argument('--obs',        default='kin',        type=ObservationType,                                                 help='Help (default: ..)', metavar='')
     parser.add_argument('--act',        default='one_d_rpm',  type=ActionType,                                                      help='Help (default: ..)', metavar='')
     parser.add_argument('--cpu',        default='1',          type=int,                                                                 help='Help (default: ..)', metavar='')
+    parser.add_argument('--timesteps', default='300000', type=int,
+                        help='Help (default: ..)', metavar='')
+    parser.add_argument('--log_interval', default='100', type=int,
+                        help='Help (default: ..)', metavar='')
     ARGS = parser.parse_args()
 
     #### Save directory ########################################
@@ -238,9 +242,9 @@ if __name__ == "__main__":
                                  deterministic=True,
                                  render=False
                                  )
-    model.learn(total_timesteps=int(1e12),
+    model.learn(total_timesteps=ARGS.timesteps,#int(1e12),
                 callback=eval_callback,
-                log_interval=100
+                log_interval=ARGS.log_interval
                 )
 
     ### Save the model #########################################
