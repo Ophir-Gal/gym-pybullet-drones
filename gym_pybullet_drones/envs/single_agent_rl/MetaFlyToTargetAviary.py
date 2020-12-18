@@ -1,9 +1,8 @@
-import learn2learn
 import numpy as np
 from gym import spaces
 from gym.utils import seeding
 from learn2learn.gym.envs.meta_env import MetaEnv
-import FlyToTargetAviary
+from gym_pybullet_drones.envs.single_agent_rl.FlyToTargetAviary import FlyToTargetAviary
 
 class MetaFlyToTargetAviary(FlyToTargetAviary, MetaEnv):
     """
@@ -13,9 +12,9 @@ class MetaFlyToTargetAviary(FlyToTargetAviary, MetaEnv):
         distance from the goal.
     """
 
-    def __init__(self, task=None):
+    def __init__(self, goal_xyzs=np.array([100, 0, 0.75])):
+        super().__init__(goal_xyzs=goal_xyzs)
         self.seed()
-        super(MetaFlyToTargetAviary, self).__init__(task)
         self.observation_space = self._observationSpace()
         self.action_space = self._actionSpace()
         self.reset()

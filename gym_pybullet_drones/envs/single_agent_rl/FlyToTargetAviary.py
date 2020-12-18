@@ -23,7 +23,7 @@ class FlyToTargetAviary(BaseSingleAgentAviary):
                  record=False, 
                  obs: ObservationType=ObservationType.KIN,
                  act: ActionType=ActionType.RPM,
-                 goal_xyzs=np.array([100, 0, 0.75]),
+                 goal_xyzs=np.array([100, 0, 0.75])
                  ):
         """Initialization of a single agent RL environment.
 
