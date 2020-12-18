@@ -8,7 +8,7 @@ class MetaFlyToDirectionAviary(FlyToDirectionAviary, MetaEnv):
     """
     **Description**
         Each task is defined by the direction specified by _goal.
-        The reward is proportional to the negative euclidean
+        The reward is proportional to the negative squared euclidean
         distance from the "direction location" (which is time dependent).
     """
 
