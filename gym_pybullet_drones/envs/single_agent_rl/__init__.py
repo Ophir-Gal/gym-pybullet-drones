@@ -3,3 +3,5 @@ from gym_pybullet_drones.envs.single_agent_rl.TakeoffAviary import TakeoffAviary
 from gym_pybullet_drones.envs.single_agent_rl.HoverAviary import HoverAviary
 from gym_pybullet_drones.envs.single_agent_rl.FlyThruGateAviary import FlyThruGateAviary
 from gym_pybullet_drones.envs.single_agent_rl.AvoidObstaclesAviary import AvoidObstaclesAviary
+from gym_pybullet_drones.envs.single_agent_rl.FlyToTargetAviary import FlyToTargetAviary
+from gym_pybullet_drones.envs.single_agent_rl.MetaFlyToTargetAviary import MetaFlyToTargetAviary

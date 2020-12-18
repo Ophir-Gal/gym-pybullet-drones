@@ -38,6 +38,16 @@ register(
     entry_point='gym_pybullet_drones.envs.single_agent_rl:AvoidObstaclesAviary',
 )
 
+register(
+    id='flytotarget-aviary-v0',
+    entry_point='gym_pybullet_drones.envs.single_agent_rl:FlyToTargetAviary',
+)
+
+register(
+    id='metaflytotarget-aviary-v0',
+    entry_point='gym_pybullet_drones.envs.single_agent_rl:MetaFlyToTargetAviary',
+)
+
 
 
 register(
