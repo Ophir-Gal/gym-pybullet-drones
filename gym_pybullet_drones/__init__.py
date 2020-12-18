@@ -48,6 +48,16 @@ register(
     entry_point='gym_pybullet_drones.envs.single_agent_rl:MetaFlyToTargetAviary',
 )
 
+register(
+    id='flytodirection-aviary-v0',
+    entry_point='gym_pybullet_drones.envs.single_agent_rl:FlyToDirectionAviary',
+)
+
+register(
+    id='metaflytodirection-aviary-v0',
+    entry_point='gym_pybullet_drones.envs.single_agent_rl:MetaFlyToDirectionAviary',
+)
+
 
 
 register(
