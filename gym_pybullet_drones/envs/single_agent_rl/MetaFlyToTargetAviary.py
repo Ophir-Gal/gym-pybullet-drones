@@ -8,12 +8,12 @@ class MetaFlyToTargetAviary(FlyToTargetAviary, MetaEnv):
     """
     **Description**
         Each task is defined by the location of the goal.
-        The reward is proportional to the negative squared
+        The reward is proportional to the negative euclidean
         distance from the goal.
     """
 
-    def __init__(self, goal_xyzs=np.array([100, 0, 0.75])):
-        super().__init__(goal_xyzs=goal_xyzs)
+    def __init__(self, goal_xyz=np.array([5, 0, 0.75])):
+        super().__init__(goal_xyz=goal_xyz)
         self.seed()
         self.observation_space = self._observationSpace()
         self.action_space = self._actionSpace()
@@ -25,7 +25,7 @@ class MetaFlyToTargetAviary(FlyToTargetAviary, MetaEnv):
         Tasks correspond to a goal point chosen uniformly at random.
         """
         vecs = [np.random.rand(2) for _ in range(num_tasks)]
-        distance = 100.0
+        distance = 5.0
         unit_vecs = [distance * (vec / np.linalg.norm(vec)) for vec in vecs]
         goals = np.c_[unit_vecs, np.array([0.75] * num_tasks)]
         tasks = [{'goal': goal} for goal in goals]

@@ -23,7 +23,7 @@ class FlyToTargetAviary(BaseSingleAgentAviary):
                  record=False, 
                  obs: ObservationType=ObservationType.KIN,
                  act: ActionType=ActionType.RPM,
-                 goal_xyzs=np.array([100, 0, 0.75])
+                 goal_xyz=np.array([5, 0, 0.75])
                  ):
         """Initialization of a single agent RL environment.
 
@@ -51,7 +51,7 @@ class FlyToTargetAviary(BaseSingleAgentAviary):
             The type of observation space (kinematic information or vision)
         act : ActionType, optional
             The type of action space (1 or 3D; RPMS, thurst and torques, or waypoint with PID control)
-        goal_xyzs: ndarray, optional
+        goal_xyz: ndarray, optional
             (3, )-shaped array containing the target XYZ position that the
             drone needs to reach.
         """
@@ -66,7 +66,7 @@ class FlyToTargetAviary(BaseSingleAgentAviary):
                          obs=obs,
                          act=act
                          )
-        self._goal = goal_xyzs
+        self._goal = goal_xyz
 
     ################################################################################
     
@@ -92,7 +92,7 @@ class FlyToTargetAviary(BaseSingleAgentAviary):
         """
         state = self._getDroneStateVector(0)
         diff_vector = np.array(self._goal)-state[0:3]
-        return -10 * np.linalg.norm(diff_vector)**2
+        return -1 * np.linalg.norm(diff_vector)
 
     ################################################################################
     
